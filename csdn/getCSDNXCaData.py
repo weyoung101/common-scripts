@@ -3,8 +3,10 @@ import hashlib
 import hmac
 import random
 
-default_x_ca_key = "203803574"
-default_app_secret = "9znpamsyl2c7cdrr9sas0le9vbc3r6ba"
+from signUpUtils import LoadEnv
+
+default_x_ca_key = LoadEnv.load_env().get('default_x_ca_key')
+default_app_secret = LoadEnv.load_env().get('default_app_secret')
 
 
 def get_x_ca_signature(content, secret):

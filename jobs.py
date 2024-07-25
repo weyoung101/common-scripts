@@ -2,18 +2,25 @@ import time
 
 import schedule
 
-import csdn.main
+from csdn.main import csdnWxAppSignIn
+from hdlMiniapp.hdlSignin import signInHDL
 
 
 # 所有的任务放这里
 def jobs():
-    csdn.main.wxAppSignIn()
+    csdnWxAppSignIn()
+    signInHDL()
 
 
-# 设置定时器
-# 设置为每天的固定时间点运行代码。
-schedule.every().day.at('10:11').do(jobs)  # 这里只需要函数名
-# 调用定时任务
-while True:
-    schedule.run_pending()
-    time.sleep(5)
+def testJobs():
+    print("testJobs")
+
+
+if __name__ == '__main__':
+    print("任务启动成功------")
+    # 设置为每天的固定时间点运行代码。这里只需要函数名
+    schedule.every().day.at('15:08').do(jobs)
+    # 调用定时任务
+    while True:
+        schedule.run_pending()
+        time.sleep(10)

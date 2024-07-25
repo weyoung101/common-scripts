@@ -1,3 +1,9 @@
+####################
+#
+# 用于加载.env中变量的工具
+#
+###################
+
 import os
 from dotenv import load_dotenv
 

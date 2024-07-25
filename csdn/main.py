@@ -2,16 +2,18 @@
 # CSDN 小程序签到
 ####
 
-import getCSDNXCaData
-from signUpUtils import RandomUserAgent, LoadEnv
-import requests
 import json
+
+import requests
+
+from csdn import getCSDNXCaData
+from signUpUtils import RandomUserAgent, LoadEnv
 
 jwt_token = LoadEnv.load_env().get('jwt_token')
 cookie = LoadEnv.load_env().get('cookie')
 
 
-def wxAppSignIn():
+def csdnWxAppSignIn():
     # 获取签名参数
     caMap = getCSDNXCaData.get_all_x_ca_data("post", "/points/api/task/activity/signin/addSignin")
 
@@ -40,19 +42,21 @@ def wxAppSignIn():
     # 将 JSON 数据转换为字符串
     json_data = json.dumps(data)
 
+    # print('headers的值： ', headers)
+    # print('json_data的值： ', json_data)
     # 发送 POST 请求
     url = 'https://miniapp-api.csdn.net/points/api/task/activity/signin/addSignin'  # 你的 API 地址
     response = requests.post(url, headers=headers, data=json_data)
 
     # 检查响应
     if response.status_code == 200:
-        print('请求成功！')
+        print('CSDN小程序签到请求成功！')
         response_data = response.json()  # 如果响应也是 JSON 格式的话
         print(response_data)
     else:
-        print(f'请求失败，状态码：{response.status_code}')
+        print(f'CSDN小程序签到请求失败，状态码：{response.status_code}')
         print(response.text)  # 如果响应包含错误信息
 
 
 if __name__ == '__main__':
-    wxAppSignIn()
+    csdnWxAppSignIn()
