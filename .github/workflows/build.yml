@@ -29,7 +29,7 @@ jobs:
       run: |
         source venv/bin/activate
         pip install pyinstaller
-        pyinstaller --onefile ./imageTools/createNewPhotoApi.py
+        pyinstaller --onefile --add-data 'imageTools:./imageTools' ./imageTools/createNewPhotoApi.py
 
     - name: List dist directory contents
       run: ls dist/
