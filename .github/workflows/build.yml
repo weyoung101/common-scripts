@@ -5,22 +5,35 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
     - uses: actions/checkout@v2
+
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
         python-version: '3.11.4'
+
     - name: Install dependencies
       run: |
         python -m venv venv
         source venv/bin/activate
         pip install -r requirements.txt
+
+    - name: Check dependencies installation
+      run: |
+        source venv/bin/activate
+        pip list
+
     - name: Package with PyInstaller
       run: |
         source venv/bin/activate
         pip install pyinstaller
         pyinstaller --onefile ./imageTools/createNewPhotoApi.py
+
+    - name: List dist directory contents
+      run: ls dist/
+
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
       with:
